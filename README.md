@@ -51,33 +51,6 @@ CivicPulse AI was built to solve this by automating the triage process. By provi
 
 ---
 
-### 💻 Local Setup & Installation
-
-### 1. Clone the Repository
-
-**git clone [https://github.com/harshitgusain/CivicPulse-AI.git](https://github.com/harshitgusain/CivicPulse-AI.git)
-cd CivicPulse-AI
-
-### 2. Backend Setup
-# Create and activate a virtual environment
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
-
-# Install dependencies
-pip install fastapi uvicorn pymongo python-multipart
-
-# Run the local server
-uvicorn main:app --reload --host 127.0.0.1 --port 8000
-
-### 3. Frontend Setup
-cd frontend
-
-# Install Node modules
-npm install
-
-# Start the development server
-npm run dev
-
 ### Future Scope
 # 1. Computer Vision Integration: Replacing the randomized mock detection logic with a trained YOLO (You Only Look Once) object detection model to autonomously scan uploaded images for hazards.
 
