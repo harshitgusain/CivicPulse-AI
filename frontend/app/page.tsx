@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 
-const DynamicMap = dynamic(() => import('../components/MapCanvas'), { 
+const DynamicMap = dynamic(() => import('../Components/MapCanvas'), { 
   ssr: false,
   loading: () => <div className="w-full h-full flex items-center justify-center bg-slate-950 text-emerald-400 font-mono tracking-widest">INITIALIZING GEOSPATIAL RADAR...</div>
 });
