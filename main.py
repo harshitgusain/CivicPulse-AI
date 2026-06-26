@@ -1,4 +1,4 @@
-# main.py
+import os
 from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
@@ -10,8 +10,10 @@ import urllib.parse
 app = FastAPI(title="CivicPulse AI Backend")
 
 # --- DATABASE CONFIGURATION ---
+# SECURITY FIX: Using Environment Variables instead of hardcoded passwords.
 DB_USER = "Harshit"
-DB_PASS = "Arshit@151024" # 👈 PUT YOUR REAL PASSWORD HERE
+# Render will inject your password here automatically
+DB_PASS = os.environ.get("MONGO_PASS", "YOUR_LOCAL_PASSWORD_HERE") 
 CLUSTER_URL = "civicpluscluster.djxnyrd.mongodb.net"
 
 # Properly escape the credentials
@@ -26,14 +28,11 @@ db = client["CivicPulseDB"]
 collection = db["issue_reports"]
 # ------------------------------
 
-# ... rest of your code ...
-# ... rest of your code ...
-db = client["CivicPulseDB"]
-collection = db["issue_reports"]
-
+# THE CORS FIX: Allowing exactly your Vercel URL
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://civic-pulse-ai-lyh6.vercel.app"], 
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -56,8 +55,8 @@ async def detect_hazards(
     file: UploadFile = File(...),
     latitude: float = Form(...),
     longitude: float = Form(...),
-    threatType: str = Form(...), # New: Received from frontend
-    severity: str = Form(...)    # New: Received from frontend
+    threatType: str = Form(...), 
+    severity: str = Form(...)    
 ):
     print(f"Processing {threatType} at [{latitude}, {longitude}]")
     
@@ -87,4 +86,5 @@ async def detect_hazards(
     return {"status": "success", "detections": detections}
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+    # Updated for Render cloud compatibility
+    uvicorn.run("main:app", host="0.0.0.0", port=10000)
