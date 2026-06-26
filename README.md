@@ -51,13 +51,11 @@ CivicPulse AI was built to solve this by automating the triage process. By provi
 
 ---
 
-## 💻 Local Setup & Installation
-
-Follow these steps to run CivicPulse AI on your local machine.
+### 💻 Local Setup & Installation
 
 ### 1. Clone the Repository
-```bash
-git clone [https://github.com/harshitgusain/CivicPulse-AI.git](https://github.com/harshitgusain/CivicPulse-AI.git)
+
+**git clone [https://github.com/harshitgusain/CivicPulse-AI.git](https://github.com/harshitgusain/CivicPulse-AI.git)
 cd CivicPulse-AI
 
 ### 2. Backend Setup
@@ -83,7 +81,7 @@ npm run dev
 ### Future Scope
 # 1. Computer Vision Integration: Replacing the randomized mock detection logic with a trained YOLO (You Only Look Once) object detection model to autonomously scan uploaded images for hazards.
 
-# 2. Big Data Analytics: Implementing Apache Spark to analyze historical hazard data and predict seasonal infrastructure degradation trends.
+# 2. Big Data Analytics: Implementing Apache Spark to analy**ze historical hazard data and predict seasonal infrastructure degradation trends.
 
 # 3. Municipal Dashboard: A dedicated portal for city officials to update the status of reports from "Pending" to "Resolved."
 
