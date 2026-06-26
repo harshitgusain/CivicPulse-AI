@@ -5,33 +5,23 @@ from pymongo import MongoClient
 import uvicorn
 import random
 import datetime
-import urllib.parse 
 
 app = FastAPI(title="CivicPulse AI Backend")
 
-# --- DATABASE CONFIGURATION ---
-# SECURITY FIX: Using Environment Variables instead of hardcoded passwords.
-DB_USER = "Harshit"
-# Render will inject your password here automatically
-DB_PASS = "Arshit%40151024" 
-CLUSTER_URL = "civicpluscluster.djxnyrd.mongodb.net"
-
-# Properly escape the credentials
-safe_user = urllib.parse.quote_plus(DB_USER)
-safe_pass = urllib.parse.quote_plus(DB_PASS)
-
-MONGO_URI = f"mongodb+srv://{safe_user}:{safe_pass}@{CLUSTER_URL}/?retryWrites=true&w=majority&appName=CivicPlusCluster"
+# --- DATABASE CONFIGURATION (NUCLEAR BYPASS) ---
+# Zero variables, zero parsing. Direct raw connection string.
+MONGO_URI = "mongodb+srv://Harshit:Arshit%40151024@civicpluscluster.djxnyrd.mongodb.net/?retryWrites=true&w=majority&appName=CivicPlusCluster"
 
 # Initialize MongoDB Client
 client = MongoClient(MONGO_URI)
 db = client["CivicPulseDB"]
 collection = db["issue_reports"]
-# ------------------------------
+# -----------------------------------------------
 
-# THE CORS FIX: Allowing exactly your Vercel URL
+# THE CORS FIX
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://civic-pulse-ai-lyh6.vercel.app"], 
+    allow_origins=["*"], # Changed to wildcard to guarantee zero browser blocks
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -70,7 +60,7 @@ async def detect_hazards(
         sev, f_col, b_col = calculate_severity(item, conf)
         detections.append({"class": item, "confidence": conf, "severity": sev, "fillColor": f_col, "borderColor": b_col})
         
-    # 2. SAVE TO MONGODB
+    # SAVE TO MONGODB
     report_document = {
         "category": threatType,
         "user_severity": severity,
@@ -86,5 +76,4 @@ async def detect_hazards(
     return {"status": "success", "detections": detections}
 
 if __name__ == "__main__":
-    # Updated for Render cloud compatibility
     uvicorn.run("main:app", host="0.0.0.0", port=10000)
