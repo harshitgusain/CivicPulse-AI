@@ -13,7 +13,7 @@ app = FastAPI(title="CivicPulse AI Backend")
 # SECURITY FIX: Using Environment Variables instead of hardcoded passwords.
 DB_USER = "Harshit"
 # Render will inject your password here automatically
-DB_PASS = os.environ.get("MONGO_PASS", "YOUR_LOCAL_PASSWORD_HERE") 
+DB_PASS = "Arshit%40151024" 
 CLUSTER_URL = "civicpluscluster.djxnyrd.mongodb.net"
 
 # Properly escape the credentials
