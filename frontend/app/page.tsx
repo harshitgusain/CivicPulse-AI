@@ -28,7 +28,7 @@ export default function Home() {
   const [addressQuery, setAddressQuery] = useState("");
   const [isSearchingAddress, setIsSearchingAddress] = useState(false);
 
-  const addLog = (message) => {
+  const addLog = (message: string) => {
     setTelemetryLogs(prev => [...prev, `[${new Date().toLocaleTimeString()}] ${message}`]);
   };
 
@@ -85,9 +85,9 @@ export default function Home() {
     formData.append("severity", selectedSeverity);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/detect", {
+      const response = await fetch("https://civicpulse-ai-bdf1.onrender.com/detect", {
         method: "POST",
-        body: formData,
+        body: formData
       });
 
       if (!response.ok) throw new Error("Backend connection failed");
